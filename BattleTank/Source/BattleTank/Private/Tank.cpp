@@ -1,30 +1,23 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Tank.h"
-
-void ATank::AimAt(FVector HitLocation)
-{
-	auto OurTankName = GetName();
-	UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s"), *OurTankName, *HitLocation.ToString());
-}
+#include "TankAimingComponent.h"
 
 ATank::ATank()
 {
 	PrimaryActorTick.bCanEverTick = true;
+
+	TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component"));
 }
 
-void ATank::BeginPlay()
+void ATank::AimAt(FVector HitLocation)
 {
-	Super::BeginPlay();
+	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
 }
 
-void ATank::Tick(float DeltaTime)
+void ATank::SetBarrelReference(UTankBarrel * BarrelToSet)
 {
-	Super::Tick(DeltaTime);
+	TankAimingComponent->SetBarrelReference(BarrelToSet);
 }
 
-void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-}
 
