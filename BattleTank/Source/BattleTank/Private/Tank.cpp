@@ -1,11 +1,14 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Tank.h"
+#include "TankMovementComponent.h"
 #include "TankAimingComponent.h"
 #include "Engine/World.h"
 #include "TankBarrel.h"
 #include "Engine/StaticMeshSocket.h"
 #include "Projectile.h"
+
+//UE_LOG(LogTemp, Warning, TEXT("Intend Move Right %f"), Throw);
 
 ATank::ATank()
 {
