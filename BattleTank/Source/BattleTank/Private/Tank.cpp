@@ -13,17 +13,19 @@
 ATank::ATank()
 {
 	PrimaryActorTick.bCanEverTick = false;
-
-	TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component"));
 }
 
 void ATank::AimAt(FVector HitLocation)
 {
+	if (!TankAimingComponent) return;
+
 	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
 }
 
 void ATank::Fire()
 {
+	if (!TankAimingComponent) return;
+
 	bool IsReloaded = FPlatformTime::Seconds() - LastFireTime > ReloadTimeInSeconds;
 
 	if (Barrel && IsReloaded) {
@@ -37,15 +39,5 @@ void ATank::Fire()
 	}
 }
 
-void ATank::SetBarrelReference(UTankBarrel * BarrelToSet)
-{
-	TankAimingComponent->SetBarrelReference(BarrelToSet);
-	Barrel = BarrelToSet;
-}
-
-void ATank::SetTurretReference(UTankTurret * TurretToSet)
-{
-	TankAimingComponent->SetTurretReference(TurretToSet);
-}
 
 
